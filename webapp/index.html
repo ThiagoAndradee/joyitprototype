@@ -10,15 +10,16 @@
 
 		<script
 			id="sap-ui-bootstrap"
-			src="resources/sap-ui-core.js"
-			data-sap-ui-resourceroots='{
-				"prototypejoyit": "./"
-			}'
-			data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+			src="https://sdk.openui5.org/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_horizon_dark"
 			data-sap-ui-async="true"
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-frameOptions="trusted"
-		></script>
+			data-sap-ui-libs="sap.m,sap.ui.core"
+			data-sap-ui-resourceroots='{"prototypejoyit":"./"}'
+			data-sap-ui-oninit="module:sap/ui/core/ComponentSupport">
+			</script>
+
 	</head>
 
 	<body class="sapUiBody">
