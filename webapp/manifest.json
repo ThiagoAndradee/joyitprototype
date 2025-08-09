@@ -41,6 +41,13 @@
 			}
 		},
 
+		"resources": {
+			"css": [
+			  { "uri": "css/style.css" }
+			]
+		  },
+		  
+
 		"handleValidation": true,
 
 		"contentDensities": {

@@ -1,0 +1,196 @@
+/* ===== LAYOUT GERAL ===== */
+.chatPage .sapMPageEnableScrolling { display:flex; flex-direction:column; }
+.pageStack { height:100%; }
+
+/* container central estilo ChatGPT */
+.chatContainer { max-width:880px; margin:0 auto; padding:0 16px; width:100%; }
+
+/* esconder subHeader */
+.chatPage .sapMPageSubHeader { display:none; }
+
+/* ===== CHAT ===== */
+.chatScroll{
+  border-radius:16px; border:1px solid var(--sapList_BorderColor);
+  padding:12px; background:var(--sapBaseColor); box-shadow:var(--sapContent_Shadow0);
+  margin-top:12px; margin-bottom:12px;
+}
+
+/* ===== BOLHAS ===== */
+.chatBubble{display:inline-block;max-width:70%;border-radius:16px;padding:12px 14px;
+  box-shadow:var(--sapContent_Shadow0);position:relative;transition:transform .05s}
+.chatBubble:hover{transform:translateY(-1px)}
+.chatAssistant{background:var(--sapGroup_ContentBackground);color:var(--sapTextColor);
+  border:1px solid var(--sapList_BorderColor)}
+.chatUser{background:var(--sapHighlightColor);color:var(--sapContent_ContrastTextColor);
+  border:1px solid var(--sapList_BorderColor)}
+@supports (background: color-mix(in srgb, red 50%, white)){
+  .chatUser{background:color-mix(in srgb,var(--sapHighlightColor) 88%,transparent);
+    border-color:color-mix(in srgb,var(--sapHighlightColor) 70%,var(--sapList_BorderColor));}
+}
+.bubbleHeader .sapMTitle{font-weight:600;opacity:.8;font-size:.875rem;line-height:1}
+
+/* cauditas (opcional) */
+.chatAssistant::after,.chatUser::after{
+  content:"";position:absolute;bottom:4px;width:10px;height:10px;transform:rotate(45deg);
+  border:1px solid var(--sapList_BorderColor);border-left:none;border-top:none;background:inherit}
+.chatAssistant::after{left:-5px} .chatUser::after{right:-5px}
+
+/* markdown */
+.messageBody p{margin:0 0 8px 0;line-height:1.5}
+.messageBody ul,.messageBody ol{margin:6px 0 10px 18px}
+.messageBody code,.messageBody pre{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace}
+.messageBody code{padding:2px 6px;border-radius:6px;background:var(--sapField_Background);
+  border:1px solid var(--sapList_BorderColor)}
+.messageBody pre{padding:10px 12px;border-radius:12px;background:var(--sapGroup_ContentBackground);
+  border:1px solid var(--sapList_BorderColor);overflow:auto}
+.typingRow{opacity:.8}
+
+/* ===== ÁREA INFERIOR (SUGERENCIAS + COMPOSER) ===== */
+.bottomArea{max-width:880px;width:100%;margin:0 auto 8px;display:flex;flex-direction:column;gap:8px}
+
+/* sugerencias en una línea (wrap si falta espacio) */
+.suggestionsBar {
+    background: transparent;
+    padding: 0;
+    border-bottom: none !important; /* remove borda inferior */
+    box-shadow: none !important;    /* remove sombra, se houver */
+  }
+  
+.suggestionsLabel{opacity:.7;margin-right:8px}
+.suggestionsWrap{gap:6px}
+.suggestionBtn{border-radius:9999px;border:1px solid var(--sapList_BorderColor);
+  background:var(--sapGroup_ContentBackground);padding:0 10px}
+
+/* composer redondeado */
+.composerShell{
+  border:1px solid var(--sapList_BorderColor);background:var(--sapGroup_ContentBackground);
+  border-radius:24px;padding:8px;box-shadow:var(--sapContent_Shadow0);gap:8px;align-items:center}
+.composerInput{border:none !important;background:transparent !important}
+
+/* QUITA el “cuadrado” interno del TextArea */
+.sapMTextArea .sapMInputBaseContentWrapper{
+  background:transparent !important;border:none !important;box-shadow:none !important;
+  border-radius:0 !important;
+}
+.sapMTextAreaInner{
+  background:transparent !important;border:none !important;box-shadow:none !important;
+  outline:none !important;border-radius:0 !important;
+}
+.sapMTextAreaInner:focus{box-shadow:none !important;outline:none !important}
+
+/* botón send visible y alineado */
+.composerSend{height:36px;border-radius:18px;padding:0 14px}
+
+/* ===== FOOTER (solo respiro + firma) ===== */
+.chatFooter{background:transparent;border-top:none}
+.chatFooter .sapMBarMiddle{justify-content:center}
+.chatSignature{opacity:.45;font-size:.875rem}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:600px){
+  .chatBubble{max-width:90%}
+  .composerShell{border-radius:18px}
+}
+
+/* ===== DARK ===== */
+@media (prefers-color-scheme: dark){
+  .messageBody pre,.messageBody code{background:var(--sapBaseColor)}
+}
+
+.emptySpacer {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    height: 32px; /* ou 24px */
+    background: transparent;
+  }
+  
+  /* Deixa o TextArea interno com bordas arredondadas */
+.composerInput .sapMInputBaseContentWrapper {
+    border-radius: 9999px !important; /* redondo */
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 6px 12px !important; /* ajusta espaçamento interno */
+  }
+  
+  /* O textarea em si */
+  .composerInput .sapMTextAreaInner {
+    border-radius: 9999px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    resize: none; /* evita redimensionar */
+  }
+
+  
+  /* Wrapper: sem fundo, sem borda, padding, flex lado a lado */
+  .composerWrapper {
+    background: transparent;
+    border: none;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+  }
+
+
+  /* Input: redondo com borda branca */
+  .composerInput .sapMInputBaseInner {
+    border-radius: 20px !important;
+    border: 1px solid white !important;
+    background-color: transparent !important;
+    color: white !important;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Botão: azulzinho */
+  .composerButton .sapMBtnInner {
+    background-color: #007bff !important; /* azul */
+    border-radius: 20px !important;
+    color: white !important;
+  }
+  
+
+  .composerWrapper:focus,
+.composerWrapper:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* === INPUT QUADRADO COM BORDA BRANCA (SEM DUPLO CONTORNO) === */
+/* Borda vai no WRAPPER do InputBase */
+.composerInput .sapMInputBaseContentWrapper {
+  border: 1px solid #fff !important;
+  border-radius: 6px !important;   /* quadrado suave; ajuste pra 0 se quiser reto */
+  background: transparent !important;
+  box-shadow: none !important;     /* mata o halo azul do tema */
+  padding: 0 !important;           /* deixa o padding pro inner */
+}
+
+/* O campo em si SEM borda nem sombra */
+.composerInput .sapMInputBaseInner {
+  border: none !important;
+  border-radius: 6px !important;   /* acompanha o wrapper */
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #fff;
+  padding: 8px 12px;               /* conforto interno */
+}
+
+/* Foco: mantém só a borda (sem glow) */
+.composerInput .sapMInputBaseContentWrapper.sapMFocus {
+  box-shadow: none !important;
+  border-color: #8ab4f8 !important; /* opcional: leve azul no foco */
+}
+
+/* Botão Send azulzinho */
+.composerButton .sapMBtnInner {
+  background-color: #0b69ff !important;
+  border-radius: 18px !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+}
+.composerButton .sapMBtnInner:hover { filter: brightness(1.05); }
+.composerButton .sapMBtnInner:active { filter: brightness(0.95); }

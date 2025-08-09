@@ -1,30 +1,134 @@
 <mvc:View
-	controllerName="prototypejoyit.controller.Main"
-	displayBlock="true"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:core="sap.ui.core"
-	core:require="{
-		formatter: 'prototypejoyit/model/formatter'
-	}">
+  controllerName="prototypejoyit.controller.Main"
+  displayBlock="true"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core">
 
-	<Page
-		title="{i18n>appTitle}"
-		id="page">
-		<content>
-			<IllustratedMessage
-				title="{i18n>appTitle}"
-				illustrationType="sapIllus-SuccessHighFive"
-				enableVerticalResponsiveness="true"
-				description="{i18n>appDescription}">
-				<additionalContent>
-					<Button
-						id="helloButton"
-						text="{formatter: 'formatter.formatValue', path: 'i18n>btnText'}"
-						press="sayHello" />
-				</additionalContent>
-			</IllustratedMessage>
-		</content>
-	</Page>
+  <Page id="page" title="SAP Audit Copilot" class="chatPage">
 
+    <content>
+      <!-- Stack principal: chat (cresce) + área inferior -->
+      <VBox width="100%" height="100%" fitContainer="true" renderType="Bare" class="pageStack">
+
+        <!-- CHAT -->
+        <VBox width="100%" class="chatContainer">
+          <layoutData><FlexItemData growFactor="1"/></layoutData>
+
+          <ScrollContainer id="chatScroll" height="70vh" width="100%" vertical="true" focusable="true" class="chatScroll">
+            <List id="chatList" items="{/messages}" growing="false" inset="false" showSeparators="None">
+              <CustomListItem type="Inactive">
+                <HBox width="100%"
+                      justifyContent="{= ${role} === 'user' ? 'End' : 'Start' }"
+                      class="sapUiSmallMarginBottom">
+                  <VBox width="auto"
+                        class="chatBubble {= ${role} === 'user' ? 'chatUser' : 'chatAssistant' }">
+                    <!-- Header só para assistant -->
+                    <HBox alignItems="Center" class="bubbleHeader" visible="{= ${role} !== 'user' }">
+                      <Avatar displaySize="XS" class="sapUiTinyMarginEnd" initials="AI"/>
+                      <Title level="H6" text="Assistant"/>
+                    </HBox>
+
+                    <!-- Typing -->
+                    <HBox visible="{isTyping}" class="typingRow">
+                      <BusyIndicator size="1rem"/>
+                      <Text text=" Assistant is typing…" class="sapUiTinyMarginBegin"/>
+                    </HBox>
+
+                    <!-- Mensagem -->
+                    <FormattedText visible="{= !${isTyping} }" htmlText="{contentHtml}" class="messageBody"/>
+                  </VBox>
+                </HBox>
+              </CustomListItem>
+            </List>
+          </ScrollContainer>
+        </VBox>
+
+        <!-- ÁREA INFERIOR (fora do footer, não corta) -->
+        <VBox width="100%" class="bottomArea">
+          <!-- Sugestões -->
+          <OverflowToolbar class="suggestionsBar">
+            <Text text="Suggestions" class="suggestionsLabel"/>
+            <ToolbarSpacer/>
+            <HBox renderType="Bare" wrap="Wrap" class="suggestionsWrap">
+              <Button type="Transparent" text="Q2 Deviations" press=".onUseSuggestion" class="suggestionBtn">
+                <customData>
+                  <core:CustomData key="prompt"
+                    value="List deviations for Q2 around revenue recognition and propose corrective actions. Follow the standard sections: Short Answer, Findings, Recommended Actions, Risks &amp; Compliance Notes, Evidence &amp; Source Hints, Next Steps."/>
+                </customData>
+              </Button>
+              <Button type="Transparent" text="30/60/90 Plan" press=".onUseSuggestion" class="suggestionBtn">
+                <customData>
+                  <core:CustomData key="prompt"
+                    value="How many documents are stored?"/>
+                </customData>
+              </Button>
+              <Button type="Transparent" text="How many documents are stored?" press=".onUseSuggestion" class="suggestionBtn">
+                <customData>
+                  <core:CustomData key="prompt"
+                    value="Total revenue this year"/>
+                </customData>
+              </Button>
+              <Button type="Transparent" text="Total revenue this year" press=".onUseSuggestion" class="suggestionBtn">
+                <customData>
+                  <core:CustomData key="prompt"
+                    value="Review this draft and flag unsupported claims, missing evidence, ambiguous wording, or compliance risks. Then rewrite it concisely with the standard sections."/>
+                </customData>
+              </Button>
+              <Button type="Transparent" text="Evidence Checklist" press=".onUseSuggestion" class="suggestionBtn">
+                <customData>
+                  <core:CustomData key="prompt"
+                    value="Create an evidence checklist for audit of internal controls (Q2). Include data sources (SAP apps/reports), minimal fields to capture, and acceptance criteria."/>
+                </customData>
+              </Button>
+            </HBox>
+          </OverflowToolbar>
+
+		 
+
+          <!-- Wrapper horizontal -->
+			<HBox class="composerWrapper" renderType="Bare" alignItems="Center">
+			
+			<!-- Input -->
+			<Input id="input"
+				type="Text"
+				placeholder="Type here..."
+				valueLiveUpdate="true"
+				liveChange=".onLiveChange"
+				class="composerInput">
+				<layoutData>
+				<FlexItemData growFactor="1"/>
+				</layoutData>
+			</Input>
+
+			<!-- Botão -->
+			<Button id="sendBtn"
+				text="Send"
+				press=".onSend"
+				type="Emphasized"
+				class="composerButton"/>
+			
+			</HBox>
+
+        </VBox>
+
+        <!-- Espaçador final para respiro antes do footer -->
+        <VBox height="16px" renderType="Bare"/>
+      </VBox>
+    </content>
+
+    <!-- FOOTER (assinatura) -->
+    <footer>
+      <Bar design="Auto" class="chatFooter">
+       <contentMiddle>
+			<Text text="designer and coded by Thiago Andrade " class="chatSignature"/>
+			<Link text="@codecuriousdesigner"
+					href="https://codecuriousdesigner.com/auth"
+					target="_blank"
+					class="chatSignature"/>
+			</contentMiddle>
+      </Bar>
+    </footer>
+
+  </Page>
 </mvc:View>
