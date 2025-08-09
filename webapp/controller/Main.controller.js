@@ -52,10 +52,11 @@ sap.ui.define([
 		oInput.setEnabled(false); oBtn.setBusy(true); BusyIndicator.show(0);
   
 		try {
-		  const res = await fetch("http://localhost:3001/api/llm", {
-			method: "POST", headers: { "Content-Type": "application/json" },
+		const res = await fetch("/api/llm", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ question: sQ })
-		  });
+			});			  
 		  let sAns = res.ok ? (await res.json()).answer || "(no answer)" : `**Error**: ${await res.text()}`;
 		  aMsgs[typingIdx] = { role: "assistant", contentHtml: mdToHtml(sAns), isTyping: false };
 		  oModel.updateBindings(true); this._scrollToBottom();

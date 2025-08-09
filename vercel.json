@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "api/llm.js", "use": "@vercel/node" },
+      { "src": "webapp/**", "use": "@vercel/static" }
+    ],
+    "routes": [
+      { "src": "^/api/llm$", "dest": "api/llm.js" },
+      { "src": "/(.*)", "dest": "/webapp/$1" }
+    ]
+  }
+  
