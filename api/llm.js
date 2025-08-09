@@ -1,5 +1,5 @@
 // api/llm.js  (Vercel Serverless Function - Node 20)
-export const config = { runtime: "nodejs20.x" };
+export const config = { runtime: "nodejs" };
 
 const SYSTEM_PROMPT = `
 You are "SAP Audit Copilot", an enterprise-grade assistant embedded in SAP UI.
